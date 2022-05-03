@@ -4,7 +4,7 @@ import { Row } from '../../components';
 import { useState, useEffect } from 'react';
 import { Table as BTable, Button as BButton, Form as BForm } from 'react-bootstrap';
 
-const Table = ({ movies }) => {
+const Table = ({ movies, setMovies }) => {
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isFilter, setIsFilter] = useState(false);
   const [isEdit, setIsEdit] = useState(null);
@@ -56,7 +56,7 @@ const Table = ({ movies }) => {
         return movie;
       })
 
-      setFilteredMovies(filtered)
+      setMovies(filtered)
     } catch (err) {
       console.error('Error Fetching Data: ', err);
     }

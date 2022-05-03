@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className="App">
-      <Table movies={movies} />
+      <Table movies={movies} setMovies={setMovies} />
     </div>
   );
 }

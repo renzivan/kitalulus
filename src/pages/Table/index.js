@@ -82,7 +82,7 @@ const Table = ({ movies, setMovies }) => {
   return (
     <div className="table-container">
       <BButton className="mb-3" variant="secondary" onClick={handleClickFilter}>Filter</BButton>
-      <BTable striped bordered hover>
+      <BTable striped hover>
         <thead>
           <tr>
             <th>No</th>
@@ -98,9 +98,9 @@ const Table = ({ movies, setMovies }) => {
             isFilter &&
             <tr>
               <td></td>
-              <td><BForm.Control type="text" onInput={(evt) => handleInputSearch('title', evt.target.value)} /></td>
+              <td><BForm.Control type="text" placeholder="Search title" onInput={(evt) => handleInputSearch('title', evt.target.value)} /></td>
               <td></td>
-              <td><BForm.Control type="text" onInput={(evt) => handleInputSearch('genre', evt.target.value)} /></td>
+              <td><BForm.Control type="text" placeholder="Search genre" onInput={(evt) => handleInputSearch('genre', evt.target.value)} /></td>
               <td style={{display: 'table-cell'}}></td>
               <td></td>
             </tr>

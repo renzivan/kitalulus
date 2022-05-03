@@ -1,15 +1,23 @@
-import './table.scss';
+import { Button, Modal as BModal} from 'react-bootstrap';
 
-const Modal = ({ description, onClick }) => {
-  const handleClickClose = () => {
-    onClick()
-  }
-
+const Modal = ({ description, show, onClick }) => {
   return (
-    <div>
-      {description}
-      <button onClick={handleClickClose}>close</button>
-    </div>
+    <BModal
+    show={show}
+    onHide={() => onClick()}
+    >
+      <BModal.Header closeButton>
+        <BModal.Title>Description</BModal.Title>
+      </BModal.Header>
+      <BModal.Body>
+        {description}
+      </BModal.Body>
+      <BModal.Footer>
+        <Button variant="secondary" onClick={() => onClick()}>
+          Close
+        </Button>
+      </BModal.Footer>
+    </BModal>
   )
 }
 

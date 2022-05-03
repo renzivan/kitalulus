@@ -1,40 +1,28 @@
-table, th, td {
-  // border: 1px solid;
+.table-container {
+  padding: 1rem 10rem;
   text-align: left;
 }
 
 table {
-  margin: auto;
-  width: 80%;
-
   th, td {
+    padding: 0.5rem;
+
     &:nth-child(5) {
       align-items: center;
       display: flex;
       justify-content: space-between;
 
+      span {
+        max-width: 500px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
       div {
-        &:first-child {
-          max-width: 300px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-
-        &:last-child {
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-        }
+        cursor: pointer;
+        display: flex;
+        align-items: center;
       }
     }
-  }
-
-  th {
-
-  }
-
-  td {
-
   }
 }

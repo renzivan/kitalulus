@@ -2,6 +2,7 @@ import './App.css';
 import Table from './components/Table';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [movies, setMovies] = useState({});

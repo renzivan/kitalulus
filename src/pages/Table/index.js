@@ -1,14 +1,12 @@
-import './table.scss';
-import Modal from './Modal';
-import { useState, useEffect } from 'react';
+import './index.scss';
 import axios from 'axios';
+import { Row } from '../../components';
+import { useState, useEffect } from 'react';
 import { Table as BTable, Button as BButton, Form as BForm } from 'react-bootstrap';
 
 const Table = ({ movies }) => {
-
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [isFilter, setIsFilter] = useState(false);
-  const [modal, setModal] = useState(null);
   const [isEdit, setIsEdit] = useState(null);
   const [rowValues, setRowValues] = useState({
     title: '',
@@ -16,6 +14,7 @@ const Table = ({ movies }) => {
     genre: '',
     descriptions: ''
   });
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleClickFilter = () => {
     setIsFilter(!isFilter);
@@ -33,11 +32,7 @@ const Table = ({ movies }) => {
     }
   }
 
-  const handleClickModal = (key) => {
-    setModal(key);
-  }
-
-  const handleChangeEdit = (evt) => {
+  const handleInputEdit = (evt) => {
     setRowValues({ ...rowValues, [evt.target.name]: evt.target.value });
   }
 
@@ -47,7 +42,7 @@ const Table = ({ movies }) => {
     setRowValues(movie);
   }
 
-  const handeClickSave = async (key) => {
+  const handleClickSave = async (key) => {
     setIsEdit(null);
 
     try {
@@ -70,6 +65,19 @@ const Table = ({ movies }) => {
   useEffect(() => {
     setFilteredMovies(movies)
   }, [movies])
+
+  useEffect(() => {
+    if (
+      rowValues.title &&
+      rowValues.views &&
+      rowValues.genre &&
+      rowValues.descriptions
+    ) {
+      setIsFormValid(true)
+    } else {
+      setIsFormValid(false)
+    }
+  }, [rowValues])
 
   return (
     <div className="table-container">
@@ -99,50 +107,17 @@ const Table = ({ movies }) => {
           }
           {
             filteredMovies.length > 0 && filteredMovies.map((movie, idx) => (
-              <tr key={idx}>
-                <td>{idx + 1}</td>
-                <td>
-                  {
-                    isEdit !== idx ?
-                    <span>{movie.title}</span> :
-                    <input type="text" name="title" value={rowValues.title} onChange={(evt) => handleChangeEdit(evt)} />
-                  }
-                </td>
-                <td>
-                  {
-                    isEdit !== idx ?
-                    <span>{movie.views}</span> :
-                    <input type="number" name="views" value={rowValues.views} onChange={(evt) => handleChangeEdit(evt)} />
-                  }
-                </td>
-                <td>
-                  {
-                    isEdit !== idx ?
-                    <span>{movie.genre}</span> :
-                    <input type="text" name="genre" value={rowValues.genre} onChange={(evt) => handleChangeEdit(evt)} />
-                  }
-                </td>
-                <td>
-                  {
-                    isEdit !== idx ?
-                    (<>
-                      <span>{movie.descriptions}</span>
-                      <div onClick={() => handleClickModal(idx)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M13,13H11V7H13M13,17H11V15H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" /></svg>
-                      </div>
-                      <Modal description={movie.descriptions} show={modal === idx} onClick={() => setModal(null)} />
-                    </>) :
-                    <textarea name="descriptions" value={rowValues.descriptions} onChange={(evt) => handleChangeEdit(evt)} />
-                  }
-                </td>
-                <td>
-                  {
-                    isEdit !== idx ?
-                      <span onClick={() => handeClickEdit(idx)}>Edit</span> :
-                      <span onClick={() => handeClickSave(idx)}>Save</span>
-                  }
-                </td>
-              </tr>
+              <Row
+                key={idx}
+                idx={idx}
+                isEdit={isEdit}
+                isFormValid={isFormValid}
+                movie={movie}
+                rowValues={rowValues}
+                handleInputEdit={(evt) => handleInputEdit(evt)}
+                handleClickEdit={(idx) => handeClickEdit(idx)}
+                handleClickSave={(idx) => handleClickSave(idx)}
+              />
             ))
           }
         </tbody>

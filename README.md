@@ -1,6 +1,4 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is deployed using Firebase Hosting: https://kitalulus-renzivan-e5a94.web.app/
 
 ## Available Scripts
 

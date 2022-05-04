@@ -62,7 +62,25 @@ const Table = ({ movies, setMovies }) => {
     }
   }
 
+  const handleClickSort = (key) => {
+    console.log('sort', filteredMovies[0])
+    const sortedMovies = filteredMovies.sort((a, b) => {
+      if ( a[key] < b[key] ){
+        return -1;
+      }
+      if ( a[key] > b[key] ){
+        return 1;
+      }
+      return 0;
+    })
+    console.log('sortedMovies: ', sortedMovies[0])
+
+    // dli gaka change state ni movies
+    setMovies(sortedMovies)
+  }
+
   useEffect(() => {
+    console.log('movies changed')
     setFilteredMovies(movies)
   }, [movies])
 
@@ -86,10 +104,10 @@ const Table = ({ movies, setMovies }) => {
         <thead>
           <tr>
             <th>No</th>
-            <th>Title</th>
-            <th>View</th>
-            <th>Genre</th>
-            <th>Description</th>
+            <th onClick={() => handleClickSort('title')}>Title</th>
+            <th onClick={() => handleClickSort('views')}>View</th>
+            <th onClick={() => handleClickSort('genre')}>Genre</th>
+            <th onClick={() => handleClickSort('descriptions')}>Description</th>
             <th>Action</th>
           </tr>
         </thead>
